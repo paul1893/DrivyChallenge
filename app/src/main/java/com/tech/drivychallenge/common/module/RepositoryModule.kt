@@ -1,6 +1,8 @@
 package com.tech.drivychallenge.common.module
 
+import android.content.Context
 import com.tech.core.list.repository.CarListRepository
+import com.tech.repository.cars.CacheManager
 import com.tech.repository.cars.CarListDataSource
 import com.tech.repository.cars.CarListRepositoryImpl
 import com.tech.repository.cars.CarListService
@@ -14,9 +16,10 @@ class RepositoryModule {
 
     @Provides
     fun provideCarListRepository(
-        dataSource: CarListDataSource
+        dataSource: CarListDataSource,
+        cacheManager: CacheManager
     ): CarListRepository =
-        CarListRepositoryImpl(dataSource)
+        CarListRepositoryImpl(dataSource, cacheManager)
 
     @Provides
     fun provideCarListService(
@@ -26,4 +29,8 @@ class RepositoryModule {
     @Provides
     fun provideCarListDataSource(service: CarListService) =
         CarListDataSource(service)
+
+    @Provides
+    fun provideCacheManager(context: Context) =
+        CacheManager(context)
 }

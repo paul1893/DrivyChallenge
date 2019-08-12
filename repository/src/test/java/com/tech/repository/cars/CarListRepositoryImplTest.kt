@@ -1,6 +1,8 @@
 package com.tech.repository.cars
 
 import com.nhaarman.mockitokotlin2.given
+import com.nhaarman.mockitokotlin2.only
+import com.nhaarman.mockitokotlin2.then
 import com.tech.core.entities.Car
 import com.tech.core.entities.Owner
 import com.tech.core.entities.Rating
@@ -18,11 +20,13 @@ class CarListRepositoryImplTest {
 
     @Mock
     private lateinit var dataSource: CarListDataSource
+    @Mock
+    private lateinit var cacheManager: CacheManager
     @InjectMocks
     lateinit var repository: CarListRepositoryImpl
 
     @Test
-    fun getCarList() {
+    fun `getCarList from network`() {
         // GIVEN
         val carListJSON = listOf(
             CarJSON(
@@ -50,6 +54,7 @@ class CarListRepositoryImplTest {
         val result = repository.getCarList()
 
         // THEN
+        then(cacheManager).should(only()).save(carListJSON)
         Assertions.assertThat(result).isEqualTo(
             listOf(
                 Car(
@@ -74,5 +79,59 @@ class CarListRepositoryImplTest {
             )
         )
 
+    }
+
+    @Test
+    fun `getCarList from disk`() {
+        // GIVEN
+        val carListJSON = listOf(
+            CarJSON(
+                model = "C3",
+                brand = "Citroen",
+                picture_url = "https://image/c3.jpg",
+                price_per_day = 15,
+                rating = RatingJSON(
+                    average = 3.5f,
+                    count = 200
+                ),
+                owner = OwnerJSON(
+                    name = "Jean Paul",
+                    picture_url = "https://image/jp.jpg",
+                    rating = RatingJSON(
+                        average = 2.0f,
+                        count = 255
+                    )
+                )
+            )
+        )
+        given(cacheManager.get()).willReturn(carListJSON)
+
+        // WHEN
+        val result = repository.getCarList(true)
+
+        // THEN
+        Assertions.assertThat(result).isEqualTo(
+            listOf(
+                Car(
+                    id = "https://image/c3.jpghttps://image/jp.jpgJean PaulC3Citroen",
+                    model = "C3",
+                    brand = "Citroen",
+                    pictureURL = "https://image/c3.jpg",
+                    pricePerDay = 15,
+                    rating = Rating(
+                        average = 3.5f,
+                        count = 200
+                    ),
+                    owner = Owner(
+                        name = "Jean Paul",
+                        pictureURL = "https://image/jp.jpg",
+                        rating = Rating(
+                            average = 2.0f,
+                            count = 255
+                        )
+                    )
+                )
+            )
+        )
     }
 }

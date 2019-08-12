@@ -6,9 +6,16 @@ import com.tech.core.entities.Rating
 import com.tech.core.list.repository.CarListRepository
 
 class CarListRepositoryImpl(
-    private val dataSource: CarListDataSource
+    private val dataSource: CarListDataSource,
+    private val cacheManager: CacheManager
 ) : CarListRepository {
-    override fun getCarList(): List<Car> = dataSource.getCarList().map(::transform)
+    override fun getCarList(fromCache: Boolean): List<Car> {
+        return if (fromCache) {
+            cacheManager.get().map(::transform)
+        } else {
+          dataSource.getCarList().also { cacheManager.save(it) }.map(::transform)
+        }
+    }
 
     private fun transform(json: CarJSON) = Car(
         id = json.picture_url + json.owner.picture_url + json.owner.name + json.model + json.brand, // The json has no "id" in it so we randomly create one on fly for the purpose of the exercise

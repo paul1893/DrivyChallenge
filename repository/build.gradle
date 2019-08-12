@@ -30,6 +30,9 @@ dependencies {
     implementation project(':core')
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
+    // GSON
+    implementation 'com.google.code.gson:gson:2.8.5'
+
     // JSON Parsing
     implementation "com.squareup.moshi:moshi:$moshiVersion"
     implementation "com.squareup.moshi:moshi-adapters:$moshiVersion"

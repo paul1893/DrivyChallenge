@@ -49,7 +49,7 @@ class CarDetailInteractorTest {
                 )
             )
         )
-        given(repository.getCarList()).willReturn(carList)
+        given(repository.getCarList(true)).willReturn(carList)
 
         // WHEN
         interactor.loadCar("carId")
@@ -102,7 +102,7 @@ class CarDetailInteractorTest {
                 )
             )
         )
-        given(repository.getCarList()).willReturn(carList)
+        given(repository.getCarList(true)).willReturn(carList)
 
         // WHEN
         interactor.loadCar("randomId")

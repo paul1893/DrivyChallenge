@@ -50,47 +50,7 @@ class CarDetailActivity : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_card_detail)
-
-        supportPostponeEnterTransition()
-
-        val slideBottom = Slide(Gravity.BOTTOM).apply {
-            excludeTarget(R.id.action_bar_container, true)
-            excludeTarget(android.R.id.statusBarBackground, true)
-            excludeTarget(android.R.id.navigationBarBackground, true)
-        }
-        window.sharedElementEnterTransition.addListener(object : Transition.TransitionListener {
-            override fun onTransitionEnd(transition: Transition?) {
-                val animator = ViewAnimationUtils.createCircularReveal(
-                    personImageView,
-                    (personImageView.left + personImageView.right) / 2,
-                    (personImageView.top + personImageView.bottom) / 2,
-                    0f,
-                    max(personImageView.width, personImageView.height).toFloat()
-                )
-                personImageView.visibility = View.VISIBLE
-                animator.start()
-                window.sharedElementEnterTransition.removeListener(this)
-            }
-
-            override fun onTransitionResume(transition: Transition?) {
-                /* do nothing */
-            }
-
-            override fun onTransitionPause(transition: Transition?) {
-                /* do nothing */
-            }
-
-            override fun onTransitionCancel(transition: Transition?) {
-                /* do nothing */
-            }
-
-            override fun onTransitionStart(transition: Transition?) {
-                personImageView.visibility = View.INVISIBLE
-            }
-        })
-
-        window.enterTransition = slideBottom
-
+        initTransitions()
         initToolbar()
         initObservers()
         controller.loadCar(carId)
@@ -126,10 +86,6 @@ class CarDetailActivity : AppCompatActivity() {
         })
     }
 
-    fun initToolbar() = supportActionBar?.let {
-        it.setDisplayHomeAsUpEnabled(true)
-    }
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> {
@@ -140,6 +96,49 @@ class CarDetailActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
+    private fun initToolbar() = supportActionBar?.let {
+        it.setDisplayHomeAsUpEnabled(true)
+    }
+
+    private fun initTransitions() {
+        supportPostponeEnterTransition()
+        window.enterTransition = Slide(Gravity.BOTTOM).apply {
+            excludeTarget(R.id.action_bar_container, true)
+            excludeTarget(android.R.id.statusBarBackground, true)
+            excludeTarget(android.R.id.navigationBarBackground, true)
+        }
+        window.sharedElementEnterTransition.addListener(object : Transition.TransitionListener {
+            override fun onTransitionEnd(transition: Transition?) {
+                val animator = ViewAnimationUtils.createCircularReveal(
+                    personImageView,
+                    (personImageView.left + personImageView.right) / 2,
+                    (personImageView.top + personImageView.bottom) / 2,
+                    0f,
+                    max(personImageView.width, personImageView.height).toFloat()
+                )
+                personImageView.visibility = View.VISIBLE
+                animator.start()
+                window.sharedElementEnterTransition.removeListener(this)
+            }
+
+            override fun onTransitionResume(transition: Transition?) {
+                /* do nothing */
+            }
+
+            override fun onTransitionPause(transition: Transition?) {
+                /* do nothing */
+            }
+
+            override fun onTransitionCancel(transition: Transition?) {
+                /* do nothing */
+            }
+
+            override fun onTransitionStart(transition: Transition?) {
+                personImageView.visibility = View.INVISIBLE
+            }
+        })
+    }
+
     private fun initObservers() = with(observable) {
         car.observe(this@CarDetailActivity, Observer(::onReceivedCar))
         error.observe(this@CarDetailActivity, Observer{ finish() })
@@ -147,10 +146,7 @@ class CarDetailActivity : AppCompatActivity() {
 
     private fun onReceivedCar(carModel: CarDetailViewModel) {
         with(carModel) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                carImageView.transitionName = carModel.id
-            }
-
+            carImageView.transitionName = carModel.id
             carnameTextView.text = name
             priceTextView.text = price
             ratingbar.rating = rating

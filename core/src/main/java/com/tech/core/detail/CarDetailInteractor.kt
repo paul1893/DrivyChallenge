@@ -8,7 +8,7 @@ class CarDetailInteractor(
     private val presenter: CarDetailPresenter
 ) {
     fun loadCar(carId: String) {
-        val carList = repository.getCarList()
+        val carList = repository.getCarList(fromCache = true)
         carList.find { it.id == carId }
             ?.let { presenter.presentCar(it) }
             ?: presenter.presentError()

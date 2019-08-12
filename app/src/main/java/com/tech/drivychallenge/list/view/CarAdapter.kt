@@ -45,10 +45,13 @@ class CarAdapter(
 
         fun bind(carViewModel: CarViewModel) = with(carViewModel) {
             view.carnameTextView.text = name
-            val options = DisplayImageOptions.Builder()
-            .showImageOnLoading(R.mipmap.ic_empty)
-            .build()
-            getImageLoader().displayImage(imageURL, view.carImageView, options)
+            getImageLoader().displayImage(
+                imageURL,
+                view.carImageView,
+                DisplayImageOptions.Builder()
+                .showImageOnLoading(R.mipmap.ic_empty)
+                .build()
+            )
             view.priceTextView.text = price
             view.ratingbar.rating = rating
             view.ratingTextView.text = ratingLabel
