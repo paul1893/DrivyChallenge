@@ -3,5 +3,6 @@
     <dimen name="cell_space">16dp</dimen>
     <dimen name="height_cell_size">224dp</dimen>
     <dimen name="space_text_from_border">32dp</dimen>
+    <dimen name="space_button_from_border">32dp</dimen>
     <dimen name="space_text_from_rating_bar">8dp</dimen>
 </resources>

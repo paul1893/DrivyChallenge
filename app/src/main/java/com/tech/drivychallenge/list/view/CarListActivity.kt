@@ -30,6 +30,8 @@ class CarListActivity : AppCompatActivity(), CarAdapter.Listener {
     companion object {
         private const val EXTRA_IMAGE_TRANSITION_NAME = "EXTRA_IMAGE_TRANSITION_NAME"
         private const val NUMBER_OF_COLUMNS = 2
+        private const val CHILD_PROGRESS_BAR= 0
+        private const val CHILD_LIST = 1
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,16 +44,8 @@ class CarListActivity : AppCompatActivity(), CarAdapter.Listener {
         recyclerView.adapter = adapter
         recyclerView.layoutManager = GridLayoutManager(this, NUMBER_OF_COLUMNS)
         initObservers()
-        controller.loadCars()
-    }
-
-    private fun initObservers() = with(observable) {
-        carList.observe(this@CarListActivity, Observer(::onReceivedCars))
-    }
-
-    private fun onReceivedCars(carList: List<CarViewModel>) {
-        this.adapter.carList = carList
-        this.adapter.notifyDataSetChanged()
+        refreshButton.setOnClickListener { loadCars() }
+        loadCars()
     }
 
     override fun onRowClicked(model: CarViewModel, sharedImageView: ImageView) {
@@ -68,5 +62,20 @@ class CarListActivity : AppCompatActivity(), CarAdapter.Listener {
         } else {
             startActivity(intent)
         }
+    }
+
+    private fun loadCars() {
+        this.viewFlipper.displayedChild = CHILD_PROGRESS_BAR
+        controller.loadCars()
+    }
+
+    private fun initObservers() = with(observable) {
+        carList.observe(this@CarListActivity, Observer(::onReceivedCars))
+    }
+
+    private fun onReceivedCars(carList: List<CarViewModel>) {
+        this.adapter.carList = carList
+        this.adapter.notifyDataSetChanged()
+        this.viewFlipper.displayedChild = CHILD_LIST
     }
 }
