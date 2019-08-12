@@ -11,7 +11,7 @@ class CarListRepositoryImpl(
     override fun getCarList(): List<Car> = dataSource.getCarList().map(::transform)
 
     private fun transform(json: CarJSON) = Car(
-        id = json.picture_url + json.owner.picture_url + json.owner.name + json.model + json.brand, // The json has no "id" in it so we randomly create one on fly
+        id = json.picture_url + json.owner.picture_url + json.owner.name + json.model + json.brand, // The json has no "id" in it so we randomly create one on fly for the purpose of the exercise
         model = json.model,
         brand = json.brand,
         pictureURL = json.picture_url,

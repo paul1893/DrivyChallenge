@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="car_detail_name">%s \n%s</string>
+    <dimen name="height_cell_size">350dp</dimen>
 </resources>

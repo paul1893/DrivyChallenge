@@ -61,7 +61,7 @@ class CarDetailPresenterImplTest {
         )
         given(resources.getString(R.string.price_per_day, 15)).willReturn("15 €/j")
         given(resources.getString(R.string.rating, 3.5f)).willReturn("3.5")
-        given(resources.getString(R.string.car_detail_name, "C3", "Citroen")).willReturn("C3 - Citroen")
+        given(resources.getString(R.string.car_detail_name, "C3", "Citroen")).willReturn("C3 \nCitroen")
 
         // WHEN
         presenter.presentCar(car)
@@ -71,7 +71,7 @@ class CarDetailPresenterImplTest {
             CarDetailViewModel(
                 id = "id",
                 imageURL = "https://image/c3.jpg",
-                name = "C3 - Citroen",
+                name = "C3 \nCitroen",
                 price = "15 €/j",
                 rating = 3.5f,
                 ratingLabel = "3.5",

@@ -2,10 +2,12 @@ package com.tech.drivychallenge.list.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.GridLayout
 import android.widget.ImageView
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.view.ViewCompat
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tech.drivychallenge.DrivyChallengeApplication
 import com.tech.drivychallenge.R
@@ -27,6 +29,7 @@ class CarListActivity : AppCompatActivity(), CarAdapter.Listener {
 
     companion object {
         private const val EXTRA_IMAGE_TRANSITION_NAME = "EXTRA_IMAGE_TRANSITION_NAME"
+        private const val NUMBER_OF_COLUMNS = 2
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,7 +40,7 @@ class CarListActivity : AppCompatActivity(), CarAdapter.Listener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_car_list)
         recyclerView.adapter = adapter
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.layoutManager = GridLayoutManager(this, NUMBER_OF_COLUMNS)
         initObservers()
         controller.loadCars()
     }

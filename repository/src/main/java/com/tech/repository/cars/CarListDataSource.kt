@@ -8,7 +8,7 @@ import java.util.Collections.emptyList
 class CarListDataSource(
     private val service: CarListService
 ) {
-    fun getCarList(): List<CarJSON> = service.getCarList().execute().body() ?: emptyList() // TODO PBA
+    fun getCarList(): List<CarJSON> = service.getCarList().execute().body() ?: emptyList() // We can also throw an exception to propagate the error
 }
 
 interface CarListService {
