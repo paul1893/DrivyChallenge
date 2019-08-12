@@ -23,6 +23,9 @@ class MainModule(private val context: Context) {
     fun provideBackgroundExecutor(): Executor = Executors.newFixedThreadPool(THREAD_COUNT)
 
     @Provides
+    fun provideContext(): Context = context
+
+    @Provides
     fun provideResources(): Resources = context.resources
 
 }

@@ -1,8 +1,37 @@
 package com.tech.drivychallenge.common.module
 
+import android.content.Context
+import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache
+import com.nostra13.universalimageloader.core.DisplayImageOptions
+import com.nostra13.universalimageloader.core.ImageLoader
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration
 import dagger.Module
+import dagger.Provides
 
 @Module
 class DiskModule {
-    // TODO PBA
+
+    @Provides
+    fun provideImageLoader(context: Context) : ImageLoader {
+        val config = ImageLoaderConfiguration.Builder(context)
+            .diskCacheExtraOptions(480, 800, null)
+            .denyCacheImageMultipleSizesInMemory()
+            .memoryCache(LruMemoryCache(2 * 1024 * 1024))
+            .memoryCacheSize(2 * 1024 * 1024)
+            .diskCacheSize(50 * 1024 * 1024)
+            .diskCacheFileCount(100)
+            .writeDebugLogs()
+            .build()
+
+        val options = DisplayImageOptions.Builder()
+            /*.showImageOnLoading(R.drawable.ic_stub) // resource or drawable
+            .showImageForEmptyUri(R.drawable.ic_empty) // resource or drawable
+            .showImageOnFail(R.drawable.ic_error) // resource or drawable */// TODO PBA
+            .build()
+
+        return ImageLoader.getInstance().apply {
+            init(config)
+        }
+    }
+
 }

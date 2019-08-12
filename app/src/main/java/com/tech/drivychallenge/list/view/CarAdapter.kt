@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.tech.drivychallenge.DrivyChallengeApplication
 import com.tech.drivychallenge.R
 import com.tech.drivychallenge.list.model.CarViewModel
 import kotlinx.android.synthetic.main.item_car.view.*
@@ -37,10 +38,13 @@ class CarAdapter(
         private val listener: Listener?
     ) : RecyclerView.ViewHolder(view) {
 
+        private fun getImageLoader()
+                = DrivyChallengeApplication.getComponent(view.context).imageLoader()
+
         fun bind(carViewModel: CarViewModel) = with(carViewModel) {
             view.carnameTextView.text = name
             view.carImageView.setImageResource(R.mipmap.ic_launcher) // TODO PBA
-            // TODO PBA load image
+            getImageLoader().displayImage(imageURL, view.carImageView)
             view.priceTextView.text = price
             view.ratingbar.rating = rating
             view.ratingTextView.text = ratingLabel

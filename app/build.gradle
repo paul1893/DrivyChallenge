@@ -33,6 +33,9 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
+    // ImageLoader
+    implementation 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
+
     // Android
     implementation "androidx.appcompat:appcompat:$androidXVersion"
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'

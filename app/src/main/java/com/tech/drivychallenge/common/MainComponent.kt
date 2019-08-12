@@ -1,5 +1,6 @@
 package com.tech.drivychallenge.common
 
+import com.nostra13.universalimageloader.core.ImageLoader
 import com.tech.drivychallenge.DrivyChallengeApplication
 import com.tech.drivychallenge.common.module.DiskModule
 import com.tech.drivychallenge.common.module.MainModule
@@ -19,5 +20,6 @@ import javax.inject.Singleton
 )
 interface MainComponent {
     fun plus(module: CarListModule): CarListComponent
+    fun imageLoader(): ImageLoader
     fun inject(application: DrivyChallengeApplication)
 }
