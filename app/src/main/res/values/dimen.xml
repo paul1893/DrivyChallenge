@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="cell_space">16dp</dimen>
+    <dimen name="space_text_from_border">32dp</dimen>
+    <dimen name="space_text_from_rating_bar">8dp</dimen>
 </resources>

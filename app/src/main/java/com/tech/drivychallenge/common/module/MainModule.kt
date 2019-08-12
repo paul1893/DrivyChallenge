@@ -12,7 +12,6 @@ import javax.inject.Singleton
 @Module
 class MainModule(private val context: Context) {
     companion object {
-        const val MAIN_THREAD = "mainThread"
         const val BACKGROUND_THREAD = "backgroundThread"
         const val THREAD_COUNT = 4
     }

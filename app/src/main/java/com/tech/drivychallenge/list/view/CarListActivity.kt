@@ -6,6 +6,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tech.drivychallenge.DrivyChallengeApplication
 import com.tech.drivychallenge.R
+import com.tech.drivychallenge.detail.view.CarDetailActivity
 import com.tech.drivychallenge.list.controller.CarListController
 import com.tech.drivychallenge.list.injection.CarListModule
 import com.tech.drivychallenge.list.model.CarViewModel
@@ -44,6 +45,7 @@ class CarListActivity : AppCompatActivity(), CarAdapter.Listener {
     }
 
     override fun onRowClicked(model: CarViewModel) {
-        // TODO PBA
+        val intent = CarDetailActivity.newIntent(this, model.id)
+        startActivity(intent)
     }
 }
