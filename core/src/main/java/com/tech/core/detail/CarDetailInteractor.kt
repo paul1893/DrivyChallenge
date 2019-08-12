@@ -1,5 +1,16 @@
 package com.tech.core.detail
 
-class CarDetailInteractor {
-    fun loadCar(carId: String) {}
+import com.tech.core.detail.presenter.CarDetailPresenter
+import com.tech.core.list.repository.CarListRepository
+
+class CarDetailInteractor(
+    private val repository: CarListRepository,
+    private val presenter: CarDetailPresenter
+) {
+    fun loadCar(carId: String) {
+        val carList = repository.getCarList()
+        carList.find { it.pictureURL == carId }
+            ?.let { presenter.presentCar(it) }
+            ?: presenter.presentError()
+    }
 }
