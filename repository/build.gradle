@@ -1,4 +1,7 @@
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 28
@@ -27,6 +30,22 @@ dependencies {
     implementation project(':core')
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
+    // JSON Parsing
+    implementation "com.squareup.moshi:moshi:$moshiVersion"
+    implementation "com.squareup.moshi:moshi-adapters:$moshiVersion"
+    kapt "com.squareup.moshi:moshi-kotlin-codegen:$moshiVersion"
+
+    // Network
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-moshi:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+
+    // Android X
+    implementation "androidx.appcompat:appcompat:$androidXVersion"
+
+    // Kotlin
+    implementation "androidx.core:core-ktx:$kotlinXVersion"
+
     // Tests
     testImplementation "junit:junit:$jUnitVersion"
     androidTestImplementation "androidx.test:runner:$testRunnerVersion"
@@ -34,4 +53,8 @@ dependencies {
     testImplementation "org.mockito:mockito-core:$mockitoVersion"
     testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockitoKotlinVersion"
     testImplementation 'org.assertj:assertj-core:3.10.0'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+}
+repositories {
+    mavenCentral()
 }
