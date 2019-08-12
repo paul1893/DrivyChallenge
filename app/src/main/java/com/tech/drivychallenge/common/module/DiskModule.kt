@@ -23,12 +23,6 @@ class DiskModule {
             .writeDebugLogs()
             .build()
 
-        val options = DisplayImageOptions.Builder()
-            /*.showImageOnLoading(R.drawable.ic_stub) // resource or drawable
-            .showImageForEmptyUri(R.drawable.ic_empty) // resource or drawable
-            .showImageOnFail(R.drawable.ic_error) // resource or drawable */// TODO PBA
-            .build()
-
         return ImageLoader.getInstance().apply {
             init(config)
         }

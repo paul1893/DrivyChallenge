@@ -41,6 +41,7 @@ class CarDetailPresenterImplTest {
     fun presentCar() {
         // GIVEN
         val car = Car(
+            id = "id",
             model = "C3",
             brand = "Citroen",
             pictureURL = "https://image/c3.jpg",
@@ -60,6 +61,7 @@ class CarDetailPresenterImplTest {
         )
         given(resources.getString(R.string.price_per_day, 15)).willReturn("15 €/j")
         given(resources.getString(R.string.rating, 3.5f)).willReturn("3.5")
+        given(resources.getString(R.string.car_detail_name, "C3", "Citroen")).willReturn("C3 - Citroen")
 
         // WHEN
         presenter.presentCar(car)
@@ -67,9 +69,9 @@ class CarDetailPresenterImplTest {
         // THEN
         Assertions.assertThat(observable.car.value).isEqualTo(
             CarDetailViewModel(
-                id = "https://image/c3.jpg",
+                id = "id",
                 imageURL = "https://image/c3.jpg",
-                name = "C3",
+                name = "C3 - Citroen",
                 price = "15 €/j",
                 rating = 3.5f,
                 ratingLabel = "3.5",

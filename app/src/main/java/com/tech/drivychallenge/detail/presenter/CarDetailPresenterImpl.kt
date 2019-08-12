@@ -15,9 +15,9 @@ class CarDetailPresenterImpl(
     override fun presentCar(car: Car) {
         observable.car.postValue(
             CarDetailViewModel(
-                id = car.pictureURL, // TODO PBA
+                id = car.id,
                 imageURL = car.pictureURL,
-                name = car.model,
+                name = resources.getString(R.string.car_detail_name, car.model, car.brand),
                 price = resources.getString(R.string.price_per_day, car.pricePerDay),
                 rating = car.rating.average,
                 ratingLabel = resources.getString(R.string.rating, car.rating.average),

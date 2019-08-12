@@ -30,6 +30,7 @@ class CarDetailInteractorTest {
         // GIVEN
         val carList = listOf(
             Car(
+                id = "carId",
                 model = "C3",
                 brand = "Citroen",
                 pictureURL = "https://image/c3.jpg",
@@ -51,11 +52,12 @@ class CarDetailInteractorTest {
         given(repository.getCarList()).willReturn(carList)
 
         // WHEN
-        interactor.loadCar("https://image/c3.jpg")
+        interactor.loadCar("carId")
 
         // THEN
         then(presenter).should(only()).presentCar(
             Car(
+                id = "carId",
                 model = "C3",
                 brand = "Citroen",
                 pictureURL = "https://image/c3.jpg",
@@ -81,6 +83,7 @@ class CarDetailInteractorTest {
         // GIVEN
         val carList = listOf(
             Car(
+                id = "carId",
                 model = "C3",
                 brand = "Citroen",
                 pictureURL = "https://image/c3.jpg",
@@ -99,9 +102,10 @@ class CarDetailInteractorTest {
                 )
             )
         )
+        given(repository.getCarList()).willReturn(carList)
 
         // WHEN
-        interactor.loadCar("carId")
+        interactor.loadCar("randomId")
 
         // THEN
         then(presenter).should(only()).presentError()

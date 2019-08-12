@@ -4,8 +4,10 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.nostra13.universalimageloader.core.DisplayImageOptions
 import com.tech.drivychallenge.DrivyChallengeApplication
 import com.tech.drivychallenge.R
 import com.tech.drivychallenge.list.model.CarViewModel
@@ -17,7 +19,7 @@ class CarAdapter(
 ) : RecyclerView.Adapter<CarAdapter.CarViewModelHolder>() {
 
     interface Listener {
-        fun onRowClicked(model: CarViewModel)
+        fun onRowClicked(model: CarViewModel, sharedImageView: ImageView)
     }
 
     var carList: List<CarViewModel> = emptyList()
@@ -43,12 +45,14 @@ class CarAdapter(
 
         fun bind(carViewModel: CarViewModel) = with(carViewModel) {
             view.carnameTextView.text = name
-            view.carImageView.setImageResource(R.mipmap.ic_launcher) // TODO PBA
-            getImageLoader().displayImage(imageURL, view.carImageView)
+            val options = DisplayImageOptions.Builder()
+            .showImageOnLoading(R.mipmap.ic_empty)
+            .build()
+            getImageLoader().displayImage(imageURL, view.carImageView, options)
             view.priceTextView.text = price
             view.ratingbar.rating = rating
             view.ratingTextView.text = ratingLabel
-            view.setOnClickListener { listener?.onRowClicked(carViewModel) }
+            view.setOnClickListener { listener?.onRowClicked(carViewModel, view.carImageView) }
             ViewCompat.setTransitionName(view.carImageView, carViewModel.id)
         }
     }

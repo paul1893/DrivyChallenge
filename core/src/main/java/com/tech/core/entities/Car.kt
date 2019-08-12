@@ -1,6 +1,7 @@
 package com.tech.core.entities
 
 data class Car(
+    val id: String,
     val model: String,
     val brand: String,
     val pictureURL: String,

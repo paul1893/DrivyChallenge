@@ -15,7 +15,7 @@ class CarListPresenterImpl(
     override fun presentCarList(carList: List<Car>) {
         observable.carList.postValue(carList.map {
             CarViewModel(
-                id = it.pictureURL, // TODO PBA
+                id = it.id,
                 imageURL = it.pictureURL,
                 name = it.model,
                 price = resources.getString(R.string.price_per_day, it.pricePerDay),

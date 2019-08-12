@@ -31,6 +31,7 @@ class CarListInteractorTest {
         // GIVEN
         val carList = listOf(
             Car(
+                id = "carId",
                 model = "C3",
                 brand = "Citroen",
                 pictureURL = "https://image/c3.jpg",

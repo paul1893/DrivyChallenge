@@ -30,8 +30,8 @@
     <TextView
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:layout_marginEnd="@dimen/space_text_from_border"
-            app:layout_constraintTop_toBottomOf="@+id/carImageView"
-            app:layout_constraintEnd_toEndOf="@+id/carImageView"
+            app:layout_constraintTop_toBottomOf="@+id/ratingbar"
+            app:layout_constraintStart_toStartOf="@+id/ratingbar"
             android:id="@+id/priceTextView"
             tools:text="12€/j"
             android:layout_width="wrap_content"

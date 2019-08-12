@@ -41,6 +41,7 @@ class CarListPresenterImplTest {
         // GIVEN
         val carList = listOf(
             Car(
+                id = "id",
                 model = "C3",
                 brand = "Citroen",
                 pictureURL = "https://image/c3.jpg",
@@ -69,7 +70,7 @@ class CarListPresenterImplTest {
         Assertions.assertThat(observable.carList.value).isEqualTo(
             listOf(
                 CarViewModel(
-                    id = "https://image/c3.jpg",
+                    id = "id",
                     imageURL = "https://image/c3.jpg",
                     name = "C3",
                     price = "15 €/j",

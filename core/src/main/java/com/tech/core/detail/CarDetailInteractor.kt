@@ -9,7 +9,7 @@ class CarDetailInteractor(
 ) {
     fun loadCar(carId: String) {
         val carList = repository.getCarList()
-        carList.find { it.pictureURL == carId }
+        carList.find { it.id == carId }
             ?.let { presenter.presentCar(it) }
             ?: presenter.presentError()
     }

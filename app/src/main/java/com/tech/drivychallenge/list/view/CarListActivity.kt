@@ -2,6 +2,9 @@ package com.tech.drivychallenge.list.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.ImageView
+import androidx.core.app.ActivityOptionsCompat
+import androidx.core.view.ViewCompat
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tech.drivychallenge.DrivyChallengeApplication
@@ -21,6 +24,10 @@ class CarListActivity : AppCompatActivity(), CarAdapter.Listener {
     @Inject
     lateinit var observable: CarListObservable
     private val adapter: CarAdapter by lazy { CarAdapter(this, this) }
+
+    companion object {
+        private const val EXTRA_IMAGE_TRANSITION_NAME = "EXTRA_IMAGE_TRANSITION_NAME"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         DrivyChallengeApplication.getComponent(applicationContext)
@@ -44,8 +51,19 @@ class CarListActivity : AppCompatActivity(), CarAdapter.Listener {
         this.adapter.notifyDataSetChanged()
     }
 
-    override fun onRowClicked(model: CarViewModel) {
+    override fun onRowClicked(model: CarViewModel, sharedImageView: ImageView) {
+        val transitionName = ViewCompat.getTransitionName(sharedImageView)
         val intent = CarDetailActivity.newIntent(this, model.id)
-        startActivity(intent)
+            .putExtra(EXTRA_IMAGE_TRANSITION_NAME, transitionName)
+        if (transitionName != null) {
+            val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                this,
+                sharedImageView,
+                transitionName
+            )
+            startActivity(intent, options.toBundle())
+        } else {
+            startActivity(intent)
+        }
     }
 }

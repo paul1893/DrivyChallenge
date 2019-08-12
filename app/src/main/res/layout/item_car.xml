@@ -14,8 +14,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:id="@+id/carImageView"
             android:layout_width="wrap_content"
-            tools:src="@mipmap/ic_launcher"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            tools:src="@mipmap/ic_empty"/>
 
     <TextView
             tools:text="Fiat Panda"

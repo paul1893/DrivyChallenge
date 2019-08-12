@@ -11,14 +11,13 @@ import com.tech.drivychallenge.detail.controller.CarDetailControllerDecorator
 import com.tech.drivychallenge.detail.controller.CarDetailControllerImpl
 import com.tech.drivychallenge.detail.presenter.CarDetailObservable
 import com.tech.drivychallenge.detail.presenter.CarDetailPresenterImpl
-import com.tech.drivychallenge.detail.view.CarDetailActivity
 import dagger.Module
 import dagger.Provides
 import java.util.concurrent.Executor
 import javax.inject.Named
 
 @Module
-class CarDetailModule() {
+class CarDetailModule {
 
     @Provides
     fun provideCarDetailInteractor(

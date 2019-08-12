@@ -53,6 +53,7 @@ class CarListRepositoryImplTest {
         Assertions.assertThat(result).isEqualTo(
             listOf(
                 Car(
+                    id = "https://image/c3.jpghttps://image/jp.jpgJean PaulC3Citroen",
                     model = "C3",
                     brand = "Citroen",
                     pictureURL = "https://image/c3.jpg",
